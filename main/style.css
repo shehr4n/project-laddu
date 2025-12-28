@@ -1,0 +1,302 @@
+@import url("https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;500;600&display=swap");
+
+/* Page */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #2a0b16;
+  font-family: "Parkinsans", "Trebuchet MS", sans-serif;
+}
+
+body.home {
+  background: #3a0f1d;
+  overflow-x: hidden;
+}
+
+/* Wrapper */
+.envelope-wrapper {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+/* Envelope base (matches your start) */
+:is(#envelope, .envelope) {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0;
+  background-color: #8b1a3a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+
+  /* invisible performance stability (doesn't change visuals) */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Triangles helper layer */
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+/* Flap (top triangle) */
+.flap {
+  top: 0;
+  left: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 90px solid #b21f3b;
+  transform-origin: top;
+  transition: transform 0.4s ease;
+  z-index: 5;
+}
+
+/* Pocket (bottom + sides illusion) */
+.pocket {
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 140px solid #cf2d4a;
+  border-right: 140px solid #cf2d4a;
+  border-bottom: 90px solid #a1162e;
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  z-index: 4;
+}
+
+/* Letter */
+.letter {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translate3d(-50%, 70px, 0);
+  width: 245px;
+  height: 150px;
+  background: #efd9d9;
+  border-radius: 6px;
+  z-index: 2;
+  padding: 16px 14px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* Text lines */
+.words {
+  font-size: 14px;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+/* little “handwritten” look */
+.line1, .line2, .line3, .line4 {
+  letter-spacing: 0.2px;
+}
+
+.line2 {
+  font-weight: 400;
+}
+
+/* Open state */
+:is(#envelope, .envelope).open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+/* ✅ FIX: keep overflow hidden for ~1 frame, then set visible (prevents dip) */
+:is(#envelope, .envelope).open {
+  overflow: hidden; /* keep stable on the click frame */
+  animation: allow-overflow 0s steps(1, end) 60ms forwards;
+}
+
+@keyframes allow-overflow {
+  to { overflow: visible; }
+}
+
+:is(#envelope, .envelope).open .letter {
+  transform: translate3d(-50%, -150px, 0);
+  z-index: 3;
+}
+
+/* Optional hint text */
+.hint {
+  color: rgba(255, 214, 224, 0.85);
+  font-size: 13px;
+}
+
+/* Month grid layout */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px 24px;
+  width: min(1100px, 92vw);
+}
+
+.month-card {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.month-label {
+  font-size: 15px;
+  color: rgba(255, 214, 224, 0.9);
+  letter-spacing: 0.3px;
+}
+
+/* Home layout */
+.home-shell {
+  width: min(1200px, 92vw);
+  display: grid;
+  gap: 24px;
+}
+
+.home-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 320px) 1fr;
+  align-items: center;
+  gap: 24px;
+  min-height: 70vh;
+}
+
+.home-panel {
+  text-transform: uppercase;
+  font-size: clamp(26px, 4vw, 44px);
+  color: #ffe8ee;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.home-card {
+  background: #fff7fa;
+  border-radius: 14px;
+  padding: 28px 22px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  display: grid;
+  gap: 16px;
+  text-align: center;
+}
+
+.home-card-title {
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2b0b14;
+  font-weight: 600;
+}
+
+.home-card-text {
+  font-size: 14px;
+  color: #4b1a26;
+  line-height: 1.4;
+}
+
+.home-card-button {
+  justify-self: center;
+  padding: 10px 18px;
+  border: 2px solid #b21f3b;
+  background: transparent;
+  color: #b21f3b;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.home-card-button:hover {
+  background: #b21f3b;
+  color: #fff7fa;
+  transform: translateY(-2px);
+}
+
+.shape {
+  position: absolute;
+  border: 3px solid rgba(255, 226, 235, 0.55);
+  opacity: 0.8;
+}
+
+.shape.circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+}
+
+.shape.square {
+  width: 48px;
+  height: 48px;
+}
+
+.shape.triangle {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 52px solid rgba(255, 226, 235, 0.55);
+  border-top: 0;
+}
+
+.shape.squiggle {
+  width: 60px;
+  height: 12px;
+  border: 0;
+  background: none;
+}
+
+.shape.squiggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 4px solid rgba(255, 226, 235, 0.55);
+  border-radius: 999px;
+  transform: rotate(-8deg);
+}
+
+.shape.one { top: 10%; left: 6%; }
+.shape.two { top: 18%; right: 10%; }
+.shape.three { bottom: 20%; left: 12%; }
+.shape.four { bottom: 12%; right: 14%; }
+.shape.five { top: 45%; left: 26%; }
+.shape.six { top: 50%; right: 26%; }
+
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    min-height: auto;
+  }
+
+  .home-panel {
+    order: 2;
+  }
+
+  .home-card {
+    order: 1;
+  }
+}

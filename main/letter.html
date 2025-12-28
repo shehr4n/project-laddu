@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Love letter for crush</title>
-  <link rel="stylesheet" href="letter.css">
+  <title>Project</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div class="envelope-wrapper">
-    <div id="envelope" class="close">
+    <div id="envelope">
       <div class="front flap"></div>
       <div class="front pocket"></div>
 
@@ -21,14 +21,13 @@
       </div>
     </div>
 
-    <div class="hint">Click the envelope</div>
+    <div class="hint">click the envelope!!</div>
   </div>
 
   <script>
     const envelope = document.getElementById("envelope");
     envelope.addEventListener("click", () => {
       envelope.classList.toggle("open");
-      envelope.classList.toggle("close");
     });
   </script>
 </body>
