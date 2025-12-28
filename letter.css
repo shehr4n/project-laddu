@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;500;600&display=swap");
+
+/* Page */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #2a0b16;
+    font-family: "Parkinsans", "Trebuchet MS", sans-serif;
+  }
+  
+  /* Wrapper */
+  .envelope-wrapper {
+    display: grid;
+    gap: 16px;
+    justify-items: center;
+  }
+  
+  /* Envelope base (matches your start) */
+  #envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    background-color: #8b1a3a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transform: translateY(0);
+    transition: transform 0.25s ease;
+    overflow: hidden;
+  }
+  
+  #envelope:active {
+    transform: translateY(2px);
+  }
+  
+  /* Triangles helper layer */
+  .front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 3;
+  }
+  
+  /* Flap (top triangle) */
+  .flap {
+    top: 0;
+    left: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 90px solid #b21f3b;
+    transform-origin: top;
+    transition: transform 0.4s ease;
+    z-index: 5;
+  }
+  
+  /* Pocket (bottom + sides illusion) */
+  .pocket {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid #cf2d4a;
+    border-right: 140px solid #cf2d4a;
+    border-bottom: 90px solid #a1162e;
+    border-top: 90px solid transparent;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    z-index: 4;
+  }
+  
+  /* Letter */
+  .letter {
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    width: 245px;
+    height: 150px;
+    background: #efd9d9;
+    border-radius: 6px;
+    z-index: 2;
+    padding: 16px 14px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+    overflow: hidden;
+  }
+  
+  /* Text lines */
+  .words {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  
+  /* little “handwritten” look */
+  .line1, .line2, .line3, .line4 {
+    letter-spacing: 0.2px;
+  }
+  
+  .line2 {
+    font-weight: 400;
+  }
+  
+  /* Closed state */
+  #envelope.close .letter {
+    transform: translateX(-50%) translateY(70px);
+  }
+  
+  #envelope.close .flap {
+    transform: rotateX(0deg);
+  }
+  
+  /* Open state */
+  #envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+  }
+
+  #envelope.open {
+    overflow: visible;
+  }
+
+  #envelope.open .letter {
+    transform: translateX(-50%) translateY(-150px);
+    z-index: 3;
+  }
+  
+  /* Optional hint text */
+  .hint {
+    color: rgba(255, 214, 224, 0.85);
+    font-size: 13px;
+  }
+  
