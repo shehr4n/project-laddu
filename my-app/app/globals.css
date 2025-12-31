@@ -980,6 +980,7 @@
   text-transform: uppercase;
   color: rgba(255, 232, 238, 0.7);
   text-align: center;
+  margin-top: -20px;
 }
 
 .letter-theme .love-loader {

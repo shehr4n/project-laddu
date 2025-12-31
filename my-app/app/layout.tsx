@@ -36,7 +36,7 @@ export default function RootLayout({
           <Link href="/" className="app-home-icon-button" aria-label="Home">
             <span className="app-home-icon" aria-hidden="true"></span>
           </Link>
-          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-center gap-2">
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-center gap-1">
             <Link
               className="text-center text-[300%] uppercase tracking-[0.2em] text-foreground"
               href="/"
