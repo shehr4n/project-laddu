@@ -57,13 +57,13 @@ export default function LoveCalculatorPage() {
   }, [isLoading]);
 
   const chartData = [
-    { month: "Jun", shehran: 92, sujana: 5 },
-    { month: "Jul", shehran: 93, sujana: 7 },
-    { month: "Aug", shehran: 94, sujana: 3 },
-    { month: "Sep", shehran: 95, sujana: 5 },
-    { month: "Oct", shehran: 95, sujana: 4 },
-    { month: "Nov", shehran: 100, sujana: 2 },
-    { month: "Dec", shehran: 100, sujana: 1 }
+    { month: "Jun", shehran: 100, sujana: 0 },
+    { month: "Jul", shehran: 100, sujana: 0 },
+    { month: "Aug", shehran: 100, sujana: 0 },
+    { month: "Sep", shehran: 100, sujana: 0 },
+    { month: "Oct", shehran: 100, sujana: 0 },
+    { month: "Nov", shehran: 100, sujana: 0 },
+    { month: "Dec", shehran: 100, sujana: 0 }
     
   ];
   const pieData = [
