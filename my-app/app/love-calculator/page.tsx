@@ -62,7 +62,7 @@ export default function LoveCalculatorPage() {
     { month: "Aug", shehran: 94, sujana: 3 },
     { month: "Sep", shehran: 95, sujana: 5 },
     { month: "Oct", shehran: 95, sujana: 4 },
-    { month: "Nov", shehran: 97, sujana: 2 },
+    { month: "Nov", shehran: 100, sujana: 2 },
     { month: "Dec", shehran: 100, sujana: 1 }
     
   ];
