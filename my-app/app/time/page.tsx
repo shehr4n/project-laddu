@@ -92,8 +92,8 @@ export default function TimePage() {
   const yearEndNextLabel =
     yearEndSlides[(yearEndCurrent + 1) % yearEndSlides.length].label;
   const MONTHS_INDEX = slides.findIndex((slide) => slide.label === "Months");
-  const YEAR_END_MINUTES_INDEX = yearEndSlides.findIndex(
-    (slide) => slide.label === "Minutes"
+  const YEAR_END_DAYS_INDEX = yearEndSlides.findIndex(
+    (slide) => slide.label === "Days"
   );
   const [showYearEnd, setShowYearEnd] = useState(false);
 
@@ -216,10 +216,10 @@ export default function TimePage() {
                 <Carousel
                   className="time-carousel time-carousel-secondary"
                   opts={{
-                    align: "center",
-                    loop: true,
-                    startIndex: YEAR_END_MINUTES_INDEX,
-                  }}
+                      align: "center",
+                      loop: true,
+                      startIndex: YEAR_END_DAYS_INDEX,
+                    }}
                   setApi={(api) => {
                     if (!api) return;
                     const update = () =>
