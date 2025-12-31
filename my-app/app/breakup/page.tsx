@@ -140,7 +140,7 @@ export default function BreakupPage() {
       {phase === "done" && (
         <div className="breakup-result">
           <img src="/images.jpeg" alt="Breakup" className="breakup-image" />
-          <div className="breakup-caption">ur breakup request has been rejected lol</div>
+          <div className="breakup-caption">sry no breakupz</div>
         </div>
       )}
 

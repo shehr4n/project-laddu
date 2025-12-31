@@ -22,10 +22,10 @@ export default function LoveCalculatorPage() {
   const [progress, setProgress] = useState(0);
 
   const handleSujanaClick = () => {
-    setSujanaPresses((count) => Math.min(count + 1, 3));
+    setSujanaPresses((count) => Math.min(count + 1, 2));
   };
 
-  const isSujanaFalling = sujanaPresses >= 3;
+  const isSujanaFalling = sujanaPresses >= 2;
 
   const handleRefresh = () => {
     window.location.reload();
@@ -193,7 +193,7 @@ export default function LoveCalculatorPage() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Read the research paper
+                  read the research bro
                 </a>
               </div>
             </>

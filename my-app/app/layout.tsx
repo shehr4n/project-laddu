@@ -33,6 +33,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="absolute left-0 top-0 z-50 w-full px-8 py-6">
+          <Link href="/" className="app-home-icon-button" aria-label="Home">
+            <span className="app-home-icon" aria-hidden="true"></span>
+          </Link>
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-center gap-2">
             <Link
               className="text-center text-[300%] uppercase tracking-[0.2em] text-foreground"
@@ -43,9 +46,7 @@ export default function RootLayout({
                 <img src="heart.png" alt="" className="app-heart-icon" />
               </span>
             </Link>
-            <div className="app-subtitle">
-              
-            </div>
+            <div className="app-subtitle">A website dedicated to sujana kabir nova</div>
           </div>
         </header>
         {children}

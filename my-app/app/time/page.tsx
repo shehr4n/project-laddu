@@ -198,7 +198,7 @@ export default function TimePage() {
             </Carousel>
           </div>
           <div className="time-secondary time-tertiary">
-            <div className="time-label">Jan 19th, 2026 12:30PM</div>
+            <div className="time-label">time left till Jan 19th, 2026 12:30PM</div>
             <div className="time-tertiary-body">
               <Button
                 variant="outline"
