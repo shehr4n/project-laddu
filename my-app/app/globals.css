@@ -138,6 +138,7 @@
   padding: 200px 0 48px;
   --text-sm: 14px;
   --text-md: 15px;
+  animation: page-fade 0.5s ease;
 }
 
 .letter-theme.home {
@@ -294,6 +295,17 @@
 @keyframes allow-overflow {
   to {
     overflow: visible;
+  }
+}
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -604,6 +616,14 @@
   display: grid;
   gap: 2px;
   justify-items: center;
+}
+
+.letter-theme .time-tertiary-body .time-carousel-secondary {
+  margin-top: -6px;
+}
+
+.letter-theme .time-tertiary-body .time-carousel-secondary .time-slide {
+  min-height: 40px;
 }
 
 .app-heart-icon {

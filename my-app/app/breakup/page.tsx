@@ -20,6 +20,9 @@ export default function BreakupPage() {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [phase, setPhase] = useState<"button" | "countdown" | "done">("button");
   const [countdown, setCountdown] = useState(5);
+  const hoverCountRef = useRef(0);
+  const [isDodging, setIsDodging] = useState(false);
+  const [canDodge, setCanDodge] = useState(true);
   const stageRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -75,9 +78,16 @@ export default function BreakupPage() {
   };
 
   const handleHover = () => {
-    if (hoverCount >= 5) return;
-    setHoverCount((count) => count + 1);
+    if (!canDodge || isDodging || hoverCountRef.current >= 6) return;
+    setCanDodge(false);
+    setIsDodging(true);
+    hoverCountRef.current += 1;
+    setHoverCount(hoverCountRef.current);
     placeButton("random");
+    window.setTimeout(() => {
+      setIsDodging(false);
+      setCanDodge(true);
+    }, 180);
   };
 
   const handleConfirm = () => {
@@ -104,6 +114,10 @@ export default function BreakupPage() {
 
   useEffect(() => {
     if (phase !== "button") return;
+    hoverCountRef.current = 0;
+    setHoverCount(0);
+    setCanDodge(true);
+    setIsDodging(false);
     placeButton("center");
     const handleResize = () => placeButton("center");
     window.addEventListener("resize", handleResize);
@@ -119,7 +133,6 @@ export default function BreakupPage() {
             className="breakup-button"
             style={{ top: `${position.top}px`, left: `${position.left}px` }}
             onClick={handleClick}
-            onMouseEnter={handleHover}
             onPointerEnter={handleHover}
             ref={buttonRef}
           >
