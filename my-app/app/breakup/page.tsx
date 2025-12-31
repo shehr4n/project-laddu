@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,15 +17,57 @@ import {
 export default function BreakupPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoverCount, setHoverCount] = useState(0);
-  const [position, setPosition] = useState({ top: "45%", left: "50%" });
+  const [position, setPosition] = useState({ top: 0, left: 0 });
   const [phase, setPhase] = useState<"button" | "countdown" | "done">("button");
   const [countdown, setCountdown] = useState(5);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const moveRandomly = () => {
-    const pad = 12;
-    const top = Math.floor(Math.random() * (100 - pad * 2) + pad);
-    const left = Math.floor(Math.random() * (100 - pad * 2) + pad);
-    setPosition({ top: `${top}%`, left: `${left}%` });
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), max);
+
+  const placeButton = (mode: "center" | "random") => {
+    const stage = stageRef.current;
+    const button = buttonRef.current;
+    if (!stage || !button) return;
+
+    const pad = 16;
+    const header = document.querySelector("header");
+    const headerBottom = header
+      ? Math.max(0, header.getBoundingClientRect().bottom - stage.getBoundingClientRect().top)
+      : 0;
+    const avoidTop = headerBottom + 12;
+    const maxLeft = stage.clientWidth - button.offsetWidth - pad;
+    const maxTop = stage.clientHeight - button.offsetHeight - pad;
+    const minLeft = pad;
+    const minTop = Math.max(pad, avoidTop);
+
+    if (mode === "center") {
+      const left = clamp(
+        (stage.clientWidth - button.offsetWidth) / 2,
+        minLeft,
+        maxLeft
+      );
+      const top = clamp(
+        (stage.clientHeight - button.offsetHeight) / 2,
+        minTop,
+        maxTop
+      );
+      setPosition({ top, left });
+      return;
+    }
+
+    const left = clamp(
+      Math.random() * (maxLeft - minLeft) + minLeft,
+      minLeft,
+      maxLeft
+    );
+    const top = clamp(
+      Math.random() * (maxTop - minTop) + minTop,
+      minTop,
+      maxTop
+    );
+    setPosition({ top, left });
   };
 
   const handleClick = () => {
@@ -35,7 +77,7 @@ export default function BreakupPage() {
   const handleHover = () => {
     if (hoverCount >= 5) return;
     setHoverCount((count) => count + 1);
-    moveRandomly();
+    placeButton("random");
   };
 
   const handleConfirm = () => {
@@ -60,17 +102,26 @@ export default function BreakupPage() {
     return () => window.clearInterval(intervalId);
   }, [phase, countdown]);
 
+  useEffect(() => {
+    if (phase !== "button") return;
+    placeButton("center");
+    const handleResize = () => placeButton("center");
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [phase]);
+
   return (
     <div className="letter-theme breakup-page">
       {phase === "button" && (
-        <div className="breakup-stage">
+        <div className="breakup-stage" ref={stageRef}>
           <Button
             variant="outline"
             className="breakup-button"
-            style={{ top: position.top, left: position.left }}
+            style={{ top: `${position.top}px`, left: `${position.left}px` }}
             onClick={handleClick}
             onMouseEnter={handleHover}
             onPointerEnter={handleHover}
+            ref={buttonRef}
           >
             Breakup
           </Button>
@@ -88,7 +139,7 @@ export default function BreakupPage() {
 
       {phase === "done" && (
         <div className="breakup-result">
-          <div className="breakup-image" aria-label="Placeholder image" />
+          <img src="/images.jpeg" alt="Breakup" className="breakup-image" />
           <div className="breakup-caption">ur breakup request has been rejected lol</div>
         </div>
       )}
@@ -98,7 +149,7 @@ export default function BreakupPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-            This action cannot be undone. This will permanently break you up with Shehran Salam.
+            This action cannot be undone. This will permanently break you up with Mr. Parrot Salam.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

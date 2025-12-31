@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Check, RefreshCcw } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Pie, PieChart, XAxis, YAxis } from "recharts";
 
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -57,14 +57,18 @@ export default function LoveCalculatorPage() {
   }, [isLoading]);
 
   const chartData = [
-    { month: "Jun", shehran: 82, sujana: 20 },
-    { month: "Jul", shehran: 88, sujana: 25 },
-    { month: "Aug", shehran: 90, sujana: 30 },
-    { month: "Sep", shehran: 95, sujana: 25 },
-    { month: "Oct", shehran: 95, sujana: 15 },
-    { month: "Nov", shehran: 97, sujana: 12 },
-    { month: "Dec", shehran: 100, sujana: 10 }
+    { month: "Jun", shehran: 92, sujana: 5 },
+    { month: "Jul", shehran: 93, sujana: 7 },
+    { month: "Aug", shehran: 94, sujana: 3 },
+    { month: "Sep", shehran: 95, sujana: 5 },
+    { month: "Oct", shehran: 95, sujana: 4 },
+    { month: "Nov", shehran: 97, sujana: 2 },
+    { month: "Dec", shehran: 100, sujana: 1 }
     
+  ];
+  const pieData = [
+    { name: "shehran", value: 98, fill: "var(--color-shehran)" },
+    { name: "sujana", value: 2, fill: "var(--color-sujana)" },
   ];
 
   const chartConfig = {
@@ -115,38 +119,84 @@ export default function LoveCalculatorPage() {
             </div>
           )}
           {showChart && (
-            <div className="love-chart">
-              <ChartContainer config={chartConfig} className="h-[320px] w-full">
-                <BarChart data={chartData} margin={{ left: 12, right: 12 }} barCategoryGap="0%" barGap={2}>
-                  <CartesianGrid vertical={false} />
-                  <XAxis
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={10}
-
-                  />
-                  <YAxis
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={10}
-                    label={{
-                      value: "Love",
-                      angle: -90,
-                      position: "insideLeft",
-                    }}
-                  />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent />}
-                  />
-                  <ChartLegend content={<ChartLegendContent />} />
-                  <Bar dataKey="shehran" fill="var(--color-shehran)" radius={[6, 6, 0, 0]} barSize={16} />
-                  <Bar dataKey="sujana" fill="var(--color-sujana)" radius={[6, 6, 0, 0]} barSize={16} />
-                </BarChart>
-              </ChartContainer>
-              <div className="love-source-inline">Source: trust me bro</div>
-            </div>
+            <>
+              <div className="love-chart-stack">
+                <div className="love-chart love-chart-bar">
+                  <ChartContainer
+                    config={chartConfig}
+                    className="h-[300px] w-full"
+                  >
+                    <BarChart
+                      data={chartData}
+                      margin={{ left: 12, right: 12 }}
+                      barCategoryGap="0%"
+                      barGap={2}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={10}
+                      />
+                      <YAxis
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={10}
+                        label={{
+                          value: "Love",
+                          angle: -90,
+                          position: "insideLeft",
+                        }}
+                      />
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent />}
+                      />
+                      <ChartLegend content={<ChartLegendContent />} />
+                      <Bar
+                        dataKey="shehran"
+                        fill="var(--color-shehran)"
+                        radius={[6, 6, 0, 0]}
+                        barSize={16}
+                      />
+                      <Bar
+                        dataKey="sujana"
+                        fill="var(--color-sujana)"
+                        radius={[6, 6, 0, 0]}
+                        barSize={16}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                  <div className="love-source-inline">Source: trust me bro</div>
+                </div>
+                <div className="love-chart love-chart-pie">
+                  <ChartContainer
+                    config={chartConfig}
+                    className="mx-auto aspect-square h-[350px] w-full"
+                  >
+                    <PieChart>
+                      <Pie data={pieData} dataKey="value" />
+                      <ChartLegend
+                        content={<ChartLegendContent nameKey="name" />}
+                        className="love-pie-legend -translate-y-2 flex-wrap gap-2 *:basis-1/2 *:justify-center"
+                      />
+                    </PieChart>
+                  </ChartContainer>
+                  <div className="love-source-inline">Source: trust me bro</div>
+                </div>
+              </div>
+              <div className="love-research">
+                <a
+                  className="love-research-link"
+                  href="https://www.researchgate.net/publication/385709508_Romantic_Relationships_Matter_More_to_Men_than_to_Women"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Read the research paper
+                </a>
+              </div>
+            </>
           )}
         </div>
       </div>

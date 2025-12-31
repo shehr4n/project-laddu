@@ -38,7 +38,10 @@ export default function RootLayout({
               className="text-center text-[300%] uppercase tracking-[0.2em] text-foreground"
               href="/"
             >
-              For Sujana:
+              <span className="inline-flex items-center gap-3">
+                For Sujana:
+                <img src="heart.png" alt="" className="app-heart-icon" />
+              </span>
             </Link>
             <div className="app-subtitle">
               
@@ -46,7 +49,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
-        <footer className="app-footer">Developed by Parrot & Chatgpt (I did 99% of the work though promis fr) </footer>
+        <footer className="app-footer">Developed and Designed By: parrot </footer>
       </body>
     </html>
   );

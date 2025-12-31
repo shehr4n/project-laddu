@@ -27,7 +27,7 @@ export default function LetterPage() {
           <div className="front pocket"></div>
 
           <div className="letter">
-            <div className="words line1">To: Name</div>
+            <div className="words line1">To: Sujana</div>
             <div className="words line2">Message</div>
             <div className="words line3">Place holder.</div>
             <div className="words line4">From: Shehran</div>
