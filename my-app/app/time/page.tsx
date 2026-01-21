@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 
-const START_DATE = new Date(2025, 5, 23, 2, 30, 0);
+const START_DATE = new Date("2025-06-23T08:30:00Z");
 const COUNTDOWN_TARGET = new Date(2026, 5, 2, 0, 0, 0);
 const YEAR_END_TARGET = new Date(2026, 0, 19, 12, 30, 0);
 
