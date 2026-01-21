@@ -14,6 +14,52 @@ import { Button } from "@/components/ui/button";
 const START_DATE = new Date("2025-06-23T08:30:00Z");
 const COUNTDOWN_TARGET = new Date(2026, 5, 2, 0, 0, 0);
 const YEAR_END_TARGET = new Date(2026, 0, 19, 12, 30, 0);
+const MS_PER_SECOND = 1000;
+const MS_PER_MINUTE = MS_PER_SECOND * 60;
+const MS_PER_HOUR = MS_PER_MINUTE * 60;
+const MS_PER_DAY = MS_PER_HOUR * 24;
+
+function addMonthsSafe(date: Date, monthsToAdd: number) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + monthsToAdd;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  const ms = date.getMilliseconds();
+  const target = new Date(year, month, 1, hours, minutes, seconds, ms);
+  const daysInTargetMonth = new Date(
+    target.getFullYear(),
+    target.getMonth() + 1,
+    0
+  ).getDate();
+  target.setDate(Math.min(day, daysInTargetMonth));
+  return target;
+}
+
+function getCalendarTotals(from: Date, to: Date) {
+  const fromTime = from.getTime();
+  const toTime = to.getTime();
+  if (toTime <= fromTime) {
+    return { months: 0, years: 0 };
+  }
+
+  let totalMonths =
+    (to.getFullYear() - from.getFullYear()) * 12 +
+    (to.getMonth() - from.getMonth());
+  let anchor = addMonthsSafe(from, totalMonths);
+  while (anchor.getTime() > toTime) {
+    totalMonths -= 1;
+    anchor = addMonthsSafe(from, totalMonths);
+  }
+
+  const nextAnchor = addMonthsSafe(anchor, 1);
+  const monthMs = nextAnchor.getTime() - anchor.getTime();
+  const remainderMs = toTime - anchor.getTime();
+  const monthFraction = monthMs > 0 ? remainderMs / monthMs : 0;
+  const months = totalMonths + monthFraction;
+  return { months, years: months / 12 };
+}
 
 export default function TimePage() {
   const [elapsedMs, setElapsedMs] = useState(0);
@@ -29,26 +75,31 @@ export default function TimePage() {
     return () => window.clearInterval(intervalId);
   }, []);
 
-  const totalSeconds = elapsedMs / 1000;
+  const nowMs = Date.now();
+  const now = new Date(nowMs);
+  const totalSeconds = elapsedMs / MS_PER_SECOND;
   const totalMinutes = totalSeconds / 60;
   const totalHours = totalMinutes / 60;
-  const totalDays = totalHours / 24;
-  const totalMonths = totalDays / 30;
-  const totalYears = totalDays / 365;
-  const remainingMs = Math.max(0, COUNTDOWN_TARGET.getTime() - Date.now());
-  const remainingSeconds = remainingMs / 1000;
+  const totalDays = elapsedMs / MS_PER_DAY;
+  const elapsedCalendar = getCalendarTotals(START_DATE, now);
+  const totalMonths = elapsedCalendar.months;
+  const totalYears = elapsedCalendar.years;
+  const remainingMs = Math.max(0, COUNTDOWN_TARGET.getTime() - nowMs);
+  const remainingSeconds = remainingMs / MS_PER_SECOND;
   const remainingMinutes = remainingSeconds / 60;
   const remainingHours = remainingMinutes / 60;
-  const remainingDays = remainingHours / 24;
-  const remainingMonths = remainingDays / 30;
-  const remainingYears = remainingDays / 365;
-  const yearEndMs = Math.max(0, YEAR_END_TARGET.getTime() - Date.now());
-  const yearEndSeconds = yearEndMs / 1000;
+  const remainingDays = remainingMs / MS_PER_DAY;
+  const remainingCalendar = getCalendarTotals(now, COUNTDOWN_TARGET);
+  const remainingMonths = remainingCalendar.months;
+  const remainingYears = remainingCalendar.years;
+  const yearEndMs = Math.max(0, YEAR_END_TARGET.getTime() - nowMs);
+  const yearEndSeconds = yearEndMs / MS_PER_SECOND;
   const yearEndMinutes = yearEndSeconds / 60;
   const yearEndHours = yearEndMinutes / 60;
-  const yearEndDays = yearEndHours / 24;
-  const yearEndMonths = yearEndDays / 30;
-  const yearEndYears = yearEndDays / 365;
+  const yearEndDays = yearEndMs / MS_PER_DAY;
+  const yearEndCalendar = getCalendarTotals(now, YEAR_END_TARGET);
+  const yearEndMonths = yearEndCalendar.months;
+  const yearEndYears = yearEndCalendar.years;
   const countdownSlides = [
     { label: "Seconds", value: remainingSeconds },
     { label: "Minutes", value: remainingMinutes },
