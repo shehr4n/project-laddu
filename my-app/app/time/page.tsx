@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const START_DATE = new Date(2025, 5, 22, 14, 30, 0);
-const COUNTDOWN_TARGET = new Date(2026, 5, 2, 0, 0, 0);
+const COUNTDOWN_TARGET = new Date(2027, 5, 2, 0, 0, 0);
 const YEAR_END_TARGET = new Date(2026, 0, 19, 12, 30, 0);
 const MS_PER_SECOND = 1000;
 const MS_PER_MINUTE = MS_PER_SECOND * 60;
