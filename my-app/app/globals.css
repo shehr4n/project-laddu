@@ -506,6 +506,25 @@
   justify-content: center;
 }
 
+.letter-theme .home-time-button {
+  position: relative;
+  overflow: visible;
+}
+
+.letter-theme .home-time-cat {
+  position: absolute;
+  left: 50%;
+  top: -58px;
+  z-index: 3;
+  display: block;
+  width: 108px;
+  max-width: 38%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  object-fit: contain;
+  pointer-events: none;
+}
+
 .letter-theme .home-button-line {
   display: block;
 }
@@ -601,29 +620,6 @@
 
 .letter-theme .time-carousel-secondary {
   width: min(520px, 88vw);
-}
-
-.letter-theme .time-toggle-button {
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.letter-theme .time-tertiary-body {
-  display: grid;
-  gap: 2px;
-  justify-items: center;
-}
-
-.letter-theme .time-tertiary-body .time-carousel-secondary {
-  margin-top: -6px;
-}
-
-.letter-theme .time-tertiary-body .time-carousel-secondary .time-slide {
-  min-height: 40px;
 }
 
 .app-heart-icon {

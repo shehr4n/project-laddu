@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -10,10 +11,20 @@ export default function Home() {
           <Link
             className={buttonVariants({
               variant: "outline",
-              className: "home-big-button text-[180%] tracking-[0.2em]",
+              className:
+                "home-big-button home-time-button text-[180%] tracking-[0.2em]",
             })}
             href="/time"
           >
+            <Image
+              className="home-time-cat"
+              src="/scuba-cat.gif"
+              alt=""
+              width={108}
+              height={108}
+              unoptimized
+              aria-hidden="true"
+            />
             Time
           </Link>
           <Link
