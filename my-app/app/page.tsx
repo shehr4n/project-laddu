@@ -18,7 +18,7 @@ export default function Home() {
           >
             <Image
               className="home-time-cat"
-              src="/scuba-cat.gif"
+              src="./scuba-cat.gif"
               alt=""
               width={108}
               height={108}
